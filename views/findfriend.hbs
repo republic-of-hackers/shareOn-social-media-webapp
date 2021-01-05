@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{page_title}}</title>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/js/friend.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body style="background-image: url('/images/welcome_background.jpg');background-size: cover;">
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+        <a class="navbar-brand" href="/">ShareOn</a>
+        </div>
+        <ul class="nav navbar-nav">
+        <li><a href="/explore">Explore</a></li>
+        <li><a href="/home">Home</a></li>
+        <li><a href='/post/create'>Create Post</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/profile" ><span class="glyphicon glyphicon-user" ></span> &nbsp;{{current_user.username}}</a></li>
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> &nbsp;Logout</a></li>
+        </ul>
+        {{!-- <form class="navbar-form navbar-left" action="/action_page.php">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form> --}}
+    </div>
+    </nav>
+
+    <div class="panel panel-default" style="margin-left: 30%;margin-right:30%">
+        <div class="panel-heading">Find Friends</div>
+        <div class="panel-body">
+            <ul id="friendslist" class="list-group">
+                {{#each friends as |friend|}}
+                    <li class="list-group-item"> 
+                        <b>Username: </b>{{friend.username}}
+                        <br> <br>
+                        {{!-- <button type="button" class="btn btn-primary" id='btn_follow-{{friend._id}}' onclick="follow_user('{{friend._id}}')">Follow</button> --}}
+                        {{#if ../current_user.following }}
+                            {{#each ../current_user.following as |following_id|}}
+                                {{#ifEquals following_id friend._id }}
+                                    <button type="button" class="btn btn-danger" id='btn_unfollow-{{friend._id}}' onclick="unfollow_user('{{friend._id}}');">UnFollow</button>
+                                {{/ifEquals}}
+                            {{/each}}
+                            <button type="button" class="btn btn-primary" id='btn_follow-{{friend._id}}' onclick="follow_user('{{friend._id}}')">Follow</button>
+                            
+                        {{else}}
+                            <button type="button" id='btn_follow' onclick="follow_user('{{friend._id}}')">Follow</button>
+                        {{/if}}
+                    </li>
+                {{/each}}
+            </ul>
+
+        </div>
+    </div>
+    
+    
+</body>
+</html>

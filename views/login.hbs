@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body style="background-image: url('/images/signup_background.png');background-position: center;background-repeat: no-repeat;background-size: cover;height: 100%;">
+
+<br><br><br><br>
+    <div class="panel panel-primary" style="margin-left:30%; margin-right:30%">
+        <div class="panel-heading">
+            Login
+
+        </div>
+        <div class="panel-body" style="margin-left: 10%;margin-right:10%;">
+
+            <form method="POST" action="/login">
+
+            <label> Username: </label>
+            <input type="text" class="form-control" required id='username' name='username'/>
+            <br>
+
+            <label>Password: </label>
+            <input type="password" class="form-control" required id='password' name='password'/>
+            <br>
+
+            <input style="margin-left:20%;margin-right:20%;width:60%" class="btn btn-success" type="submit" required id='btn_login' name="btn_login" value="Login"/>
+            </form>
+            <br>
+
+            
+
+            <div style="text-align: center;">
+                <p><h5><b>D</b>on't <b>H</b>ave <b>a</b> <b>A</b>ccount ?<br><br></p>
+                <div style="text-align: center;">
+                    <h4><b>Login via <a href="/login/facebook"><img src="/images/facebook_logo.png" height="30px" width="40px"/></a> or <a href="/login/twitter"><img src="/images/twitter_logo.png" height="30px" width="40px"/></a></b></h4>
+                </div>
+                <br>
+                <a href='/signup' class="text-success"> 
+                    <button type="button" style="margin-left:20%;margin-right:20%;width:60%" class="btn btn-primary">Create</button>
+                </a></h5>
+            </div>
+
+        </div>
+    </div>    
+</body>
+</html>

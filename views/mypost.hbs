@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{page_title}}</title>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/js/post_asset.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body style="background-image: url('/images/welcome_background.jpg');background-size: cover;">
+
+    <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+        <a class="navbar-brand" href="/">ShareOn</a>
+        </div>
+        <ul class="nav navbar-nav">
+        <li><a href="/explore">Explore</a></li>
+        <li><a href="/home">Home</a></li>
+        <li><a href='/post/create'>Create Post</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/profile" ><span class="glyphicon glyphicon-user" ></span> &nbsp;{{current_user.username}}</a></li>
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> &nbsp;Logout</a></li>
+        </ul>
+        {{!-- <form class="navbar-form navbar-left" action="/action_page.php">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form> --}}
+    </div>
+    </nav>
+
+    <div class="panel panel-default" style="margin-left:2%;margin-right:2%;">
+        <div class="panel-heading"> <h4><b> My Post</b></h4></div>
+        <div class="panel-body">
+            <ul id="postlist" class="list-group">
+                {{#each all_posts as |post|}}
+                    <li class="list-group-item"> 
+                        <div>
+                            <b>Email:</b>{{post.author_email}} <br>
+                            <b>Name:</b> {{ post.name }} <br>
+                            <b>Topic:</b>{{ post.topic }} <br>
+                            <b>Content:</b> {{ post.content }} <br>
+                            
+                        </div>
+                        
+                
+                        <div id='replylist-{{post._id}}' style="display: none;">
+                            
+                            <b>Reply:</b>
+                            <ul id="replies-{{post._id}}">                           
+                                {{#each post.replies as |reply|}}
+                                    <li id="reply-{{reply}}">  </li>
+                                {{/each}}
+                            </ul>
+
+                            <hr>
+                            <div style="margin-left:2%; margin-right:60%">
+                                <label>Reply,</label>
+                                <textarea  id='content-{{post._id}}' class="form-control" cols="2" rows="5" name='content' placeholder="Enter your reply..."></textarea> <br>
+                                <button class="btn btn-info" type="submit" id='btn_addreply' name='btn_addreply' onclick="add_reply('{{post._id}}', 'home')">Add </button>
+                                <button class="btn btn-warning" id="btn_hidereply" onclick="hide_reply_box('{{post._id}}')">Hide</button>
+                            </div>
+                            <br>
+                            
+                        </div>
+
+                        <button class="btn btn-default" id='btn_showreply-{{post._id}}' name='btn_showreply' onclick="show_reply_box('{{post._id}}', '{{post.replies}}')">Show Replies</button>
+
+                        <br><br>
+                
+                        {{#if post.likeby}}
+                            {{#each post.likeby as |user_id|}}
+                                {{#ifEquals user_id ../../current_user_id }}
+                                    <button class="btn btn-danger" id="btn_unlikebtn-{{post._id}}" name='btn_unlikebtn' onclick="unlike_post('{{post._id}}', 'home')">Unlike</button>
+                                {{else}}
+                            {{/ifEquals}}                            
+                        {{/each}}
+                        {{else}}
+                            <button class="btn btn-primary" id="btn_likebtn-{{post._id}}" name='btn_likebtn' onclick="like_post('{{post._id}}', 'home')">Like</button>
+                        {{/if}}
+
+                        
+                        
+
+                        
+                            
+                        
+                        
+                        
+                        
+
+                        
+                        
+
+                    </li> <br>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+
+    {{!-- <div>
+        <h2> My Post</h2>
+    </div>
+
+    <div>
+        <ul id='mypostlist'>
+            {{#each all_posts as |post|}}
+            <li> Email: {{post.author_email}} <br>
+                 Name: {{ post.name }} <br>
+                 Topic: {{ post.topic }} <br>
+                 Content: {{ post.content }} <br>
+                 Reply: {{post.replies}}
+            </li> <br>
+        {{/each}}
+        </ul>
+
+    </div> --}}
+    
+</body>
+</html>
